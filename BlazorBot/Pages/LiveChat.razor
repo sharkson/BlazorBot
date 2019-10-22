@@ -1,0 +1,71 @@
+﻿@page "/livechat"
+
+@using ChatModels;
+@using BlazorBot.Services;
+@inject ChatUpdateService ChatUpdateService;
+@inject ChatResponseService ChatResponseService;
+
+<h3>Live Chat</h3>
+
+<ul class="messages">
+    @foreach (var chat in messages)
+    {
+        <li class="chat-container">
+            <div class="chat chat-@chat.user">
+                <div class="chat-time">@chat.time</div>
+                <div class="chat-username">@chat.user</div>
+                <div class="chat-message">@chat.message</div>
+            </div>
+        </li>
+    }
+</ul>
+
+<div>
+    <input placeholder="Send a message" @bind="@messageText" @onkeyup="@(e => SendMessageWithEnter(e, messageText))" />
+    <button @onclick="@(async () => await SendMessage(messageText))">Send</button>
+</div>
+
+@code {
+    string conversationName = (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond).ToString();
+    string messageText;
+    IList<Chat> messages = new List<Chat>();
+
+    async Task SendMessage(string message)
+    {
+        if (!string.IsNullOrWhiteSpace(message))
+        {
+            var chat = new Chat { message = message, user = "you" };
+            var success = await ChatUpdateService.UpdateChatAsync(chat, conversationName);
+            if (success)
+            {
+                messages.Add(chat);
+                messageText = string.Empty;
+                GetResponse(); //do not await, repond async
+            }
+
+        }
+    }
+
+    async Task GetResponse()
+    {
+        var response = await ChatResponseService.GetChatResponseAsync(conversationName);
+        if (response.confidence > 0)
+        {
+            foreach (var message in response.response)
+            {
+                var chat = new Chat { message = message, user = "sharkbot" };
+                messages.Add(chat);
+                this.StateHasChanged();
+                await ChatUpdateService.UpdateChatAsync(chat, conversationName);
+            }
+        }
+    }
+
+    async Task SendMessageWithEnter(KeyboardEventArgs eventArgs, string message)
+    {
+        if (eventArgs.Key == "Enter")
+        {
+            await SendMessage(message);
+        }
+    }
+}

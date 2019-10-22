@@ -1,0 +1,203 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: white;
+    background-color: rgb(51, 51, 51);
+}
+
+a, .btn-link {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-row {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.main {
+    flex: 1;
+}
+
+    .main .top-row {
+        background-color: black;
+        border-bottom: 1px solid #d6d5d5;
+        justify-content: flex-end;
+    }
+
+        .main .top-row > a {
+            margin-left: 1.5rem;
+        }
+
+.sidebar {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, rgb(58,6,71) 70%);
+}
+
+    .sidebar .top-row {
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .sidebar .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .sidebar .oi {
+        width: 2rem;
+        font-size: 1.1rem;
+        vertical-align: text-top;
+        top: -2px;
+    }
+
+.nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+        .nav-item a.active {
+            background-color: rgba(255,255,255,0.25);
+            color: white;
+        }
+
+        .nav-item a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+.content {
+    padding-top: 1.1rem;
+}
+
+.navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+@media (max-width: 767.98px) {
+    .main .top-row {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    app {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .main .top-row {
+        position: sticky;
+        top: 0;
+    }
+
+    .main > div {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .sidebar .collapse {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}
+
+.chat-username {
+    font-weight: bold;
+    color: rgb(217, 224, 33);
+    display: none;
+}
+
+.chat-time {
+    font-size: 1.5ex;
+    float: right;
+    color: gray;
+    display: none;
+}
+
+.messages {
+    list-style-type: none;
+    color: white;
+    padding-left: 0;
+}
+
+.chat-container {
+    display: block;
+}
+
+.chat {
+    display: inline-block;
+    border-radius: 10px;
+    padding-top: 1ex;
+    padding-bottom: 1ex;
+    padding-left: 1ex;
+    padding-right: 1ex;
+    margin-bottom: 1ex;
+    --min-width: 10em;
+}
+
+.chat-sharkbot {
+    background-image: linear-gradient(180deg, rgba(58,6,71, .3) 0%, rgba(58,6,71, .25) 50%, rgba(58,6,71, .3) 100%);
+    border-bottom-left-radius: 0;
+}
+
+.chat-you {
+    color: #009cdd;
+    background-image: linear-gradient(180deg, rgba(5, 39, 103, .3) 0%, rgba(5, 39, 103, .25) 50%, rgba(5, 39, 103, .3) 100%);
+    border-bottom-right-radius: 0;
+    margin-left: 1em;
+    text-align: right;
+}
+
+.chat-you .chat-time {
+    float: left;
+}
